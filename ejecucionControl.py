@@ -1,5 +1,4 @@
-from logicaCartas import logicaCartas
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 import random
 import msvcrt
 import json
@@ -12,6 +11,11 @@ class ejecucionSistemaControl:
 
     api = Flask(__name__)
    
+   
+    @api.route("/", methods = ['GET'])
+    def mInicio():
+        return render_template("nuevo.html")
+
     @api.route("/deck/new", methods = ['GET'])
     def mCrearBaraja():
 
@@ -37,11 +41,27 @@ class ejecucionSistemaControl:
             cartajson = ("{}{}".format(carta.get('carta'),carta.get('tipo')))
             maso.append(cartajson)
 
-        return '<h3>BARAJA CREADA</h3> \n <h5>{}</h5>'.format(maso)
+        link1 = "window.location.href='http://127.0.0.1:5000/deck/new'"
+        link2 = "window.location.href='http://127.0.0.1:5000/deck/shuffle'"
+        link3 = "window.location.href='http://127.0.0.1:5000/deck/show/remain'"
+        link4 = "window.location.href='http://127.0.0.1:5000/deck/pickone'"
+        link5 = "window.location.href='http://127.0.0.1:5000/user/show/hand'"
+        link6 = "window.location.href='http://127.0.0.1:5000/user/play'"
+        link7 = "window.location.href='http://127.0.0.1:5000'"
+
+        return "<div><STYLE type='text/css'></STYLE></div><div><H1 class='Tit'> BARAJA CREADA </H1><H3>{}</H3><button class='C1' onclick={}>Nueva Baraja</button><button class='C1' onclick={}>Revolver Baraja</button><button class='C1' onclick={}>Ver Disponibles</button><button class='C1' onclick={}>Tomar Carta</button><button class='C1' onclick={}>Ver Mano</button><button class='C1' onclick={}>Mis Jugadas</button></div><button class='C1' onclick={}>Menú Principal</button></div>".format(maso,link1, link2, link3, link4, link5, link6, link7)
 
 
     @api.route("/deck/shuffle", methods = ['GET'])
     def mCartasShuffle():
+
+        link1 = "window.location.href='http://127.0.0.1:5000/deck/new'"
+        link2 = "window.location.href='http://127.0.0.1:5000/deck/shuffle'"
+        link3 = "window.location.href='http://127.0.0.1:5000/deck/show/remain'"
+        link4 = "window.location.href='http://127.0.0.1:5000/deck/pickone'"
+        link5 = "window.location.href='http://127.0.0.1:5000/user/show/hand'"
+        link6 = "window.location.href='http://127.0.0.1:5000/user/play'"
+        link7 = "window.location.href='http://127.0.0.1:5000'"
 
         with open ('baraja.json') as paqueteCartas: #Se abre el archivo de baraja json para manipular los datos
             paquete = json.load(paqueteCartas)
@@ -57,13 +77,21 @@ class ejecucionSistemaControl:
                 cartajson = ("{}{}".format(carta.get('carta'),carta.get('tipo')))
                 maso.append(cartajson)
 
-            return '<h3>BARAJANDO CARTAS</h3> \n <h5>{}</h5>'.format(maso)
+            return "<div><STYLE type='text/css'></STYLE></div><div><H1 class='Tit'> Revolviendo Baraja... </H1><H3>{}</H3><button class='C1' onclick={}>Nueva Baraja</button><button class='C1' onclick={}>Revolver Baraja</button><button class='C1' onclick={}>Ver Disponibles</button><button class='C1' onclick={}>Tomar Carta</button><button class='C1' onclick={}>Ver Mano</button><button class='C1' onclick={}>Mis Jugadas</button><button class='C1' onclick={}>Menú Principal</button></div></div>".format(maso,link1, link2, link3, link4, link5, link6, link7)
         else:
-            return '<h3>NO QUEDAN CARTAS DISPONIBLES</h3>'
+            return "<div><STYLE type='text/css'></STYLE></div><div><H1 class='Tit'> No hay cartas para revolver </H1><button class='C1' onclick={}>Nueva Baraja</button><button class='C1' onclick={}>Revolver Baraja</button><button class='C1' onclick={}>Ver Disponibles</button><button class='C1' onclick={}>Tomar Carta</button><button class='C1' onclick={}>Ver Mano</button><button class='C1' onclick={}>Mis Jugadas</button><button class='C1' onclick={}>Menú Principal</button></div></div>".format(link1, link2, link3, link4, link5, link6, link7)
 
 
     @api.route("/deck/show/remain", methods = ['GET'])
     def mCargarCartasNuevas():
+
+        link1 = "window.location.href='http://127.0.0.1:5000/deck/new'"
+        link2 = "window.location.href='http://127.0.0.1:5000/deck/shuffle'"
+        link3 = "window.location.href='http://127.0.0.1:5000/deck/show/remain'"
+        link4 = "window.location.href='http://127.0.0.1:5000/deck/pickone'"
+        link5 = "window.location.href='http://127.0.0.1:5000/user/show/hand'"
+        link6 = "window.location.href='http://127.0.0.1:5000/user/play'"
+        link7 = "window.location.href='http://127.0.0.1:5000'"
 
         with open ('baraja.json') as paqueteCartas: #Se abre el archivo de baraja json para manipular los datos
             paquete = json.load(paqueteCartas) 
@@ -74,13 +102,22 @@ class ejecucionSistemaControl:
             for carta in paquete:
                 cartajson = ("{}{}".format(carta.get('carta'),carta.get('tipo')))
                 maso.append(cartajson)
-            return '<h3>CARTAS DISPONIBLES</h3> \n <h5>{}</h5>'.format(maso)
+            return "<div><STYLE type='text/css'></STYLE></div><div><H1 class='Tit'> Cartas Disponibles </H1><H3>{}</H3><button class='C1' onclick={}>Nueva Baraja</button><button class='C1' onclick={}>Revolver Baraja</button><button class='C1' onclick={}>Ver Disponibles</button><button class='C1' onclick={}>Tomar Carta</button><button class='C1' onclick={}>Ver Mano</button><button class='C1' onclick={}>Mis Jugadas</button><button class='C1' onclick={}>Menú Principal</button></div></div>".format(maso,link1, link2, link3, link4, link5, link6, link7)
         else:
-            return '<h3>NO QUEDAN CARTAS DISPONIBLES</h3>'
+            return "<div><STYLE type='text/css'></STYLE></div><div><H1 class='Tit'> No hay cartas disponibles </H1><button class='C1' onclick={}>Nueva Baraja</button><button class='C1' onclick={}>Revolver Baraja</button><button class='C1' onclick={}>Ver Disponibles</button><button class='C1' onclick={}>Tomar Carta</button><button class='C1' onclick={}>Ver Mano</button><button class='C1' onclick={}>Mis Jugadas</button><button class='C1' onclick={}>Menú Principal</button></div></div>".format(link1, link2, link3, link4, link5, link6, link7)
 
 
     @api.route("/user/show/hand", methods = ['GET'])
     def mCargarCartasTomadas():
+
+        link1 = "window.location.href='http://127.0.0.1:5000/deck/new'"
+        link2 = "window.location.href='http://127.0.0.1:5000/deck/shuffle'"
+        link3 = "window.location.href='http://127.0.0.1:5000/deck/show/remain'"
+        link4 = "window.location.href='http://127.0.0.1:5000/deck/pickone'"
+        link5 = "window.location.href='http://127.0.0.1:5000/user/show/hand'"
+        link6 = "window.location.href='http://127.0.0.1:5000/user/play'"
+        link7 = "window.location.href='http://127.0.0.1:5000'"
+
         with open ('barajaMano.json') as paqueteCartas: #Se abre el archivo de baraja json para manipular los datos
             paquete = json.load(paqueteCartas)    
 
@@ -90,13 +127,21 @@ class ejecucionSistemaControl:
                 for carta in paquete:
                     cartajson = ("{}{}".format(carta.get('carta'),carta.get('tipo')))
                     maso.append(cartajson)
-                return '<h3>CARTAS EN MANO</h3> \n <h5>{}</h5>'.format(maso)
+                return "<div><STYLE type='text/css'></STYLE></div><div><H1 class='Tit'> Cartas en Mano... </H1><H3>{}</H3><button class='C1' onclick={}>Nueva Baraja</button><button class='C1' onclick={}>Revolver Baraja</button><button class='C1' onclick={}>Ver Disponibles</button><button class='C1' onclick={}>Tomar Carta</button><button class='C1' onclick={}>Ver Mano</button><button class='C1' onclick={}>Mis Jugadas</button><button class='C1' onclick={}>Menú Principal</button></div></div>".format(maso,link1, link2, link3, link4, link5, link6, link7)
             else:
-                return '<h3>NO HAS TOMADO NINGUNA CARTA</h3>'
+                return "<div><STYLE type='text/css'></STYLE></div><div><H1 class='Tit'> No has tomado ninguna carta </H1><button class='C1' onclick={}>Nueva Baraja</button><button class='C1' onclick={}>Revolver Baraja</button><button class='C1' onclick={}>Ver Disponibles</button><button class='C1' onclick={}>Tomar Carta</button><button class='C1' onclick={}>Ver Mano</button><button class='C1' onclick={}>Mis Jugadas</button><button class='C1' onclick={}>Menú Principal</button></div></div>".format(link1, link2, link3, link4, link5, link6, link7)
     
 
     @api.route("/deck/pickone", methods = ['GET'])
     def mTomarCartas():
+
+        link1 = "window.location.href='http://127.0.0.1:5000/deck/new'"
+        link2 = "window.location.href='http://127.0.0.1:5000/deck/shuffle'"
+        link3 = "window.location.href='http://127.0.0.1:5000/deck/show/remain'"
+        link4 = "window.location.href='http://127.0.0.1:5000/deck/pickone'"
+        link5 = "window.location.href='http://127.0.0.1:5000/user/show/hand'"
+        link6 = "window.location.href='http://127.0.0.1:5000/user/play'"
+        link7 = "window.location.href='http://127.0.0.1:5000'"
 
         with open ('baraja.json') as paqueteCartas: #Se abre el archivo de baraja json para manipular los datos
             paquete = json.load(paqueteCartas)
@@ -108,17 +153,27 @@ class ejecucionSistemaControl:
                     json.dump(paquete, paqueteCartas, indent=4)     #eliminando el dato que acabamos de tomar
 
                 with open ('barajaMano.json') as paqueteCartas:     #Guardamos en el jason Baraja en Mano los valores que
+                    paquete = json.load(paqueteCartas)
                     paquete.append(cambio)                          #ya tenía más el valor que acabamos de tomar del otro  
                                                                     #archivo json
                 with open ('barajaMano.json', "w") as paqueteCartas: 
                     json.dump(paquete, paqueteCartas, indent=4)
 
-                return '<h3>HA TOMADO UNA CARTA</h3> \n <h5> Carta tomada → {}{}</h5>'.format(cambio.get('carta'),cambio.get('tipo'))
+                return "<div><STYLE type='text/css'></STYLE></div><div><H1 class='Tit'> HA TOMADO UNA CARTA </H1><H3>Carta tomada → {}{}</H3><button class='C1' onclick={}>Nueva Baraja</button><button class='C1' onclick={}>Revolver Baraja</button><button class='C1' onclick={}>Ver Disponibles</button><button class='C1' onclick={}>Tomar Carta</button><button class='C1' onclick={}>Ver Mano</button><button class='C1' onclick={}>Mis Jugadas</button><button class='C1' onclick={}>Menú Principal</button></div>".format(cambio.get('carta'),cambio.get('tipo'),link1, link2, link3, link4, link5, link6, link7)
             else:
-                return '<h3>NO QUEDAN CARTAS DISPONIBLES</h3>'
+                return "<div><STYLE type='text/css'></STYLE></div><div><H1 class='Tit'> No quedan cartas disponibles </H1><button class='C1' onclick={}>Nueva Baraja</button><button class='C1' onclick={}>Revolver Baraja</button><button class='C1' onclick={}>Ver Disponibles</button><button class='C1' onclick={}>Tomar Carta</button><button class='C1' onclick={}>Ver Mano</button><button class='C1' onclick={}>Mis Jugadas</button><button class='C1' onclick={}>Menú Principal</button></div></div>".format(link1, link2, link3, link4, link5, link6, link7)
 
     @api.route("/user/play", methods = ['GET'])
     def mVerificarJuego():
+
+        link1 = "window.location.href='http://127.0.0.1:5000/deck/new'"
+        link2 = "window.location.href='http://127.0.0.1:5000/deck/shuffle'"
+        link3 = "window.location.href='http://127.0.0.1:5000/deck/show/remain'"
+        link4 = "window.location.href='http://127.0.0.1:5000/deck/pickone'"
+        link5 = "window.location.href='http://127.0.0.1:5000/user/show/hand'"
+        link6 = "window.location.href='http://127.0.0.1:5000/user/play'"
+        link7 = "window.location.href='http://127.0.0.1:5000'"
+
         with open ('barajaMano.json') as paqueteCartas: #Se abre el archivo de baraja json para manipular los datos
             paquete = json.load(paqueteCartas) 
         
@@ -389,4 +444,4 @@ class ejecucionSistemaControl:
         else:
             variableReturn = variableReturn +"No hay cartas en mano \n"
 
-        return '<h3>Jugadas en mano</h3> \n <h5>{}</h5>'.format(variableReturn)
+        return "<div><STYLE type='text/css'></STYLE></div><div><H1 class='Tit'> Jugadas Disponibles </H1><H3>{}</H3><button class='C1' onclick={}>Nueva Baraja</button><button class='C1' onclick={}>Revolver Baraja</button><button class='C1' onclick={}>Ver Disponibles</button><button class='C1' onclick={}>Tomar Carta</button><button class='C1' onclick={}>Ver Mano</button><button class='C1' onclick={}>Mis Jugadas</button><button class='C1' onclick={}>Menú Principal</button></div>".format(variableReturn,link1, link2, link3, link4, link5, link6, link7)

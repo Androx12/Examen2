@@ -1,4 +1,4 @@
-from Ejecucion import ejecucionSistemaControl
+from ejecucionControl import ejecucionSistemaControl
 
 if __name__ == '__main__':
     
