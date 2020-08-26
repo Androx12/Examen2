@@ -1,14 +1,198 @@
 [
     {
+        "carta": "6",
+        "tipo": "\u2663"
+    },
+    {
+        "carta": "7",
+        "tipo": "\u2665"
+    },
+    {
+        "carta": "10",
+        "tipo": "\u2666"
+    },
+    {
+        "carta": "10",
+        "tipo": "\u2660"
+    },
+    {
+        "carta": "3",
+        "tipo": "\u2666"
+    },
+    {
+        "carta": "J",
+        "tipo": "\u2666"
+    },
+    {
+        "carta": "J",
+        "tipo": "\u2663"
+    },
+    {
+        "carta": "8",
+        "tipo": "\u2663"
+    },
+    {
+        "carta": "2",
+        "tipo": "\u2660"
+    },
+    {
+        "carta": "K",
+        "tipo": "\u2665"
+    },
+    {
+        "carta": "J",
+        "tipo": "\u2665"
+    },
+    {
+        "carta": "10",
+        "tipo": "\u2663"
+    },
+    {
+        "carta": "9",
+        "tipo": "\u2665"
+    },
+    {
+        "carta": "4",
+        "tipo": "\u2660"
+    },
+    {
+        "carta": "8",
+        "tipo": "\u2665"
+    },
+    {
+        "carta": "6",
+        "tipo": "\u2665"
+    },
+    {
+        "carta": "4",
+        "tipo": "\u2663"
+    },
+    {
+        "carta": "K",
+        "tipo": "\u2660"
+    },
+    {
+        "carta": "8",
+        "tipo": "\u2660"
+    },
+    {
+        "carta": "Q",
+        "tipo": "\u2665"
+    },
+    {
+        "carta": "6",
+        "tipo": "\u2666"
+    },
+    {
+        "carta": "A",
+        "tipo": "\u2660"
+    },
+    {
+        "carta": "3",
+        "tipo": "\u2660"
+    },
+    {
+        "carta": "K",
+        "tipo": "\u2663"
+    },
+    {
+        "carta": "3",
+        "tipo": "\u2663"
+    },
+    {
+        "carta": "A",
+        "tipo": "\u2666"
+    },
+    {
+        "carta": "10",
+        "tipo": "\u2665"
+    },
+    {
+        "carta": "5",
+        "tipo": "\u2660"
+    },
+    {
+        "carta": "7",
+        "tipo": "\u2663"
+    },
+    {
+        "carta": "K",
+        "tipo": "\u2666"
+    },
+    {
+        "carta": "8",
+        "tipo": "\u2666"
+    },
+    {
+        "carta": "J",
+        "tipo": "\u2660"
+    },
+    {
+        "carta": "A",
+        "tipo": "\u2663"
+    },
+    {
         "carta": "9",
         "tipo": "\u2660"
+    },
+    {
+        "carta": "5",
+        "tipo": "\u2665"
     },
     {
         "carta": "2",
         "tipo": "\u2666"
     },
     {
-        "carta": "6",
+        "carta": "7",
+        "tipo": "\u2666"
+    },
+    {
+        "carta": "5",
+        "tipo": "\u2663"
+    },
+    {
+        "carta": "Q",
+        "tipo": "\u2660"
+    },
+    {
+        "carta": "4",
+        "tipo": "\u2666"
+    },
+    {
+        "carta": "3",
+        "tipo": "\u2665"
+    },
+    {
+        "carta": "Q",
+        "tipo": "\u2663"
+    },
+    {
+        "carta": "5",
+        "tipo": "\u2666"
+    },
+    {
+        "carta": "2",
+        "tipo": "\u2665"
+    },
+    {
+        "carta": "2",
+        "tipo": "\u2663"
+    },
+    {
+        "carta": "9",
+        "tipo": "\u2663"
+    },
+    {
+        "carta": "A",
+        "tipo": "\u2665"
+    },
+    {
+        "carta": "7",
+        "tipo": "\u2660"
+    },
+    {
+        "carta": "9",
         "tipo": "\u2666"
     },
     {
@@ -16,159 +200,11 @@
         "tipo": "\u2666"
     },
     {
-        "carta": "2",
-        "tipo": "\u2665"
-    },
-    {
         "carta": "4",
-        "tipo": "\u2660"
-    },
-    {
-        "carta": "5",
         "tipo": "\u2665"
-    },
-    {
-        "carta": "3",
-        "tipo": "\u2665"
-    },
-    {
-        "carta": "5",
-        "tipo": "\u2660"
-    },
-    {
-        "carta": "9",
-        "tipo": "\u2663"
-    },
-    {
-        "carta": "K",
-        "tipo": "\u2663"
-    },
-    {
-        "carta": "4",
-        "tipo": "\u2663"
-    },
-    {
-        "carta": "7",
-        "tipo": "\u2665"
-    },
-    {
-        "carta": "8",
-        "tipo": "\u2660"
-    },
-    {
-        "carta": "A",
-        "tipo": "\u2665"
-    },
-    {
-        "carta": "2",
-        "tipo": "\u2663"
-    },
-    {
-        "carta": "7",
-        "tipo": "\u2663"
-    },
-    {
-        "carta": "9",
-        "tipo": "\u2666"
-    },
-    {
-        "carta": "A",
-        "tipo": "\u2666"
-    },
-    {
-        "carta": "3",
-        "tipo": "\u2663"
-    },
-    {
-        "carta": "7",
-        "tipo": "\u2666"
-    },
-    {
-        "carta": "10",
-        "tipo": "\u2660"
-    },
-    {
-        "carta": "K",
-        "tipo": "\u2666"
-    },
-    {
-        "carta": "10",
-        "tipo": "\u2666"
-    },
-    {
-        "carta": "8",
-        "tipo": "\u2663"
-    },
-    {
-        "carta": "3",
-        "tipo": "\u2666"
-    },
-    {
-        "carta": "J",
-        "tipo": "\u2665"
-    },
-    {
-        "carta": "J",
-        "tipo": "\u2660"
-    },
-    {
-        "carta": "6",
-        "tipo": "\u2663"
-    },
-    {
-        "carta": "K",
-        "tipo": "\u2660"
-    },
-    {
-        "carta": "5",
-        "tipo": "\u2666"
-    },
-    {
-        "carta": "7",
-        "tipo": "\u2660"
-    },
-    {
-        "carta": "A",
-        "tipo": "\u2660"
-    },
-    {
-        "carta": "5",
-        "tipo": "\u2663"
     },
     {
         "carta": "6",
         "tipo": "\u2660"
-    },
-    {
-        "carta": "J",
-        "tipo": "\u2663"
-    },
-    {
-        "carta": "J",
-        "tipo": "\u2666"
-    },
-    {
-        "carta": "4",
-        "tipo": "\u2665"
-    },
-    {
-        "carta": "10",
-        "tipo": "\u2663"
-    },
-    {
-        "carta": "6",
-        "tipo": "\u2665"
-    },
-    {
-        "carta": "3",
-        "tipo": "\u2660"
-    },
-    {
-        "carta": "8",
-        "tipo": "\u2666"
-    },
-    {
-        "carta": "4",
-        "tipo": "\u2666"
     }
 ]
