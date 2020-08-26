@@ -9,15 +9,27 @@ class ejecucionSistemaControl:
         self.barajaJson = 'baraja.json'
         self.barajaManoJson = 'barajaMano.json'
 
+
     api = Flask(__name__)
    
    
     @api.route("/", methods = ['GET'])
     def mInicio():
         return render_template("nuevo.html")
+        
 
     @api.route("/deck/new", methods = ['GET'])
     def mCrearBaraja():
+
+        titulo = "BARAJA NUEVA"
+        mensaje =""
+        link1 = "window.location.href='http://127.0.0.1:5000/deck/new'"
+        link2 = "window.location.href='http://127.0.0.1:5000/deck/shuffle'"
+        link3 = "window.location.href='http://127.0.0.1:5000/deck/show/remain'"
+        link4 = "window.location.href='http://127.0.0.1:5000/deck/pickone'"
+        link5 = "window.location.href='http://127.0.0.1:5000/user/show/hand'"
+        link6 = "window.location.href='http://127.0.0.1:5000/user/play'"
+        link7 = "window.location.href='http://127.0.0.1:5000'"
 
         cartas = ["A","2","3","4","5","6","7","8","9","10","J","Q","K"]
         tipos = ["♣","♥","♠","♦"]
@@ -36,25 +48,19 @@ class ejecucionSistemaControl:
         with open ('barajaMano.json', "w") as paqueteCartas:    #Se abre el archivo de baraja en mano json y se guarda
             json.dump(barajaMano, paqueteCartas, indent=4)      #y se inicializa cada vez que se crea una nueva baraja
 
-        maso = []               #Se crea una presentación para mostrar en html las cartas creadas
+        mazo = ''               #Se crea una presentación para mostrar en html las cartas creadas
         for carta in baraja:
             cartajson = ("{}{}".format(carta.get('carta'),carta.get('tipo')))
-            maso.append(cartajson)
+            mazo = mazo +" → "+cartajson
 
-        link1 = "window.location.href='http://127.0.0.1:5000/deck/new'"
-        link2 = "window.location.href='http://127.0.0.1:5000/deck/shuffle'"
-        link3 = "window.location.href='http://127.0.0.1:5000/deck/show/remain'"
-        link4 = "window.location.href='http://127.0.0.1:5000/deck/pickone'"
-        link5 = "window.location.href='http://127.0.0.1:5000/user/show/hand'"
-        link6 = "window.location.href='http://127.0.0.1:5000/user/play'"
-        link7 = "window.location.href='http://127.0.0.1:5000'"
-
-        return "<div><STYLE type='text/css'></STYLE></div><div><H1 class='Tit'> BARAJA CREADA </H1><H3>{}</H3><button class='C1' onclick={}>Nueva Baraja</button><button class='C1' onclick={}>Revolver Baraja</button><button class='C1' onclick={}>Ver Disponibles</button><button class='C1' onclick={}>Tomar Carta</button><button class='C1' onclick={}>Ver Mano</button><button class='C1' onclick={}>Mis Jugadas</button></div><button class='C1' onclick={}>Menú Principal</button></div>".format(maso,link1, link2, link3, link4, link5, link6, link7)
+        return "<style type='text/css'> H1 {background:#273f27;color:#ffffff; text-align:center;margin:2% 20%;margin-bottom:0%;padding:1%;box-sizing: border-box;border-right:solid 2px #000000;border-left:solid 2px #000000;border-bottom:solid 1px #000000;border-top:solid 1px #000000;border-top-left-radius:10px;border-top-right-radius:10px;} div {text-align:center} H3 {text-align: center; color:#ffffff} button {text-align:center;box-sizing: border-box;margin:5px;padding:10px 5%;border:none;background:#1c2f1f;color:#ffffff;} button:hover {box-sizing: border-box;background:#405142;font-weight:bold;padding:12px 5%;border-radius:5px;cursor:pointer;box-shadow:0px 2px 0px #ffffff} body {background:#678a67;} footer {background:#273f27;border-right: solid 2px #000000;text-align:center;border-bottom-right-radius:10px;border-bottom-left-radius:10px;color:#ffffff;margin: 0% 20%;border-top: solid 1px #000000;border-left: solid 2px #000000;border-bottom: solid 2px #000000;}</style> <div> <H1>"+titulo+"</H1><H3>"+mazo+"</H3> <button class='C1' onclick="+link1+">Nueva Baraja</button><button class='C1' onclick="+link2+">Revolver Baraja</button><button class='C1' onclick="+link3+">Ver Disponibles</button><button class='C1' onclick="+link4+">Tomar Carta</button><button class='C1' onclick="+link5+">Ver Mano</button><H6></H6><button class='C1' onclick="+link6+">Mis Jugadas</button><button class='C1' onclick="+link7+">Menú Principal</button> <footer><p class='pie'>Programación Avanzada Segundo Exámen</p></footer> </div>"
 
 
     @api.route("/deck/shuffle", methods = ['GET'])
     def mCartasShuffle():
 
+        titulo = "REVOLVIENDO CARTAS"
+        mensaje ="No hay cartas para revolver"
         link1 = "window.location.href='http://127.0.0.1:5000/deck/new'"
         link2 = "window.location.href='http://127.0.0.1:5000/deck/shuffle'"
         link3 = "window.location.href='http://127.0.0.1:5000/deck/show/remain'"
@@ -72,19 +78,21 @@ class ejecucionSistemaControl:
             with open ('baraja.json', "w") as paqueteCartas: #Luego se vuelve a abrir el archivo para guardar
                 json.dump(paquete, paqueteCartas, indent=4)
             
-            maso = []               #Se crea una presentación para mostrar en html las cartas revueltas
+            mazo = ""              #Se crea una presentación para mostrar en html las cartas revueltas
             for carta in paquete:
                 cartajson = ("{}{}".format(carta.get('carta'),carta.get('tipo')))
-                maso.append(cartajson)
+                mazo = mazo +" → "+cartajson
 
-            return "<div><STYLE type='text/css'></STYLE></div><div><H1 class='Tit'> Revolviendo Baraja... </H1><H3>{}</H3><button class='C1' onclick={}>Nueva Baraja</button><button class='C1' onclick={}>Revolver Baraja</button><button class='C1' onclick={}>Ver Disponibles</button><button class='C1' onclick={}>Tomar Carta</button><button class='C1' onclick={}>Ver Mano</button><button class='C1' onclick={}>Mis Jugadas</button><button class='C1' onclick={}>Menú Principal</button></div></div>".format(maso,link1, link2, link3, link4, link5, link6, link7)
+            return "<style type='text/css'> H1 {background:#273f27;color:#ffffff; text-align:center;margin:2% 20%;margin-bottom:0%;padding:1%;box-sizing: border-box;border-right:solid 2px #000000;border-left:solid 2px #000000;border-bottom:solid 1px #000000;border-top:solid 1px #000000;border-top-left-radius:10px;border-top-right-radius:10px;} div {text-align:center} H3 {text-align: center; color:#ffffff} button {text-align:center;box-sizing: border-box;margin:5px;padding:10px 5%;border:none;background:#1c2f1f;color:#ffffff;} button:hover {box-sizing: border-box;background:#405142;font-weight:bold;padding:12px 5%;border-radius:5px;cursor:pointer;box-shadow:0px 2px 0px #ffffff} body {background:#678a67;} footer {background:#273f27;border-right: solid 2px #000000;text-align:center;border-bottom-right-radius:10px;border-bottom-left-radius:10px;color:#ffffff;margin: 0% 20%;border-top: solid 1px #000000;border-left: solid 2px #000000;border-bottom: solid 2px #000000;}</style> <div> <H1>"+titulo+"</H1><H3>"+mazo+"</H3> <button class='C1' onclick="+link1+">Nueva Baraja</button><button class='C1' onclick="+link2+">Revolver Baraja</button><button class='C1' onclick="+link3+">Ver Disponibles</button><button class='C1' onclick="+link4+">Tomar Carta</button><button class='C1' onclick="+link5+">Ver Mano</button><H6></H6><button class='C1' onclick="+link6+">Mis Jugadas</button><button class='C1' onclick="+link7+">Menú Principal</button> <footer><p class='pie'>Programación Avanzada Segundo Exámen</p></footer> </div>"
         else:
-            return "<div><STYLE type='text/css'></STYLE></div><div><H1 class='Tit'> No hay cartas para revolver </H1><button class='C1' onclick={}>Nueva Baraja</button><button class='C1' onclick={}>Revolver Baraja</button><button class='C1' onclick={}>Ver Disponibles</button><button class='C1' onclick={}>Tomar Carta</button><button class='C1' onclick={}>Ver Mano</button><button class='C1' onclick={}>Mis Jugadas</button><button class='C1' onclick={}>Menú Principal</button></div></div>".format(link1, link2, link3, link4, link5, link6, link7)
+            return "<style type='text/css'> H1 {background:#273f27;color:#ffffff; text-align:center;margin:2% 20%;margin-bottom:0%;padding:1%;box-sizing: border-box;border-right:solid 2px #000000;border-left:solid 2px #000000;border-bottom:solid 1px #000000;border-top:solid 1px #000000;border-top-left-radius:10px;border-top-right-radius:10px;} div {text-align:center} H3 {text-align: center; color:#ffffff} button {text-align:center;box-sizing: border-box;margin:5px;padding:10px 5%;border:none;background:#1c2f1f;color:#ffffff;} button:hover {box-sizing: border-box;background:#405142;font-weight:bold;padding:12px 5%;border-radius:5px;cursor:pointer;box-shadow:0px 2px 0px #ffffff} body {background:#678a67;} footer {background:#273f27;border-right: solid 2px #000000;text-align:center;border-bottom-right-radius:10px;border-bottom-left-radius:10px;color:#ffffff;margin: 0% 20%;border-top: solid 1px #000000;border-left: solid 2px #000000;border-bottom: solid 2px #000000;}</style> <div> <H1>"+titulo+"</H1><H3>"+mensaje+"</H3> <button class='C1' onclick="+link1+">Nueva Baraja</button><button class='C1' onclick="+link2+">Revolver Baraja</button><button class='C1' onclick="+link3+">Ver Disponibles</button><button class='C1' onclick="+link4+">Tomar Carta</button><button class='C1' onclick="+link5+">Ver Mano</button><H6></H6><button class='C1' onclick="+link6+">Mis Jugadas</button><button class='C1' onclick="+link7+">Menú Principal</button> <footer><p class='pie'>Programación Avanzada Segundo Exámen</p></footer> </div>"
 
 
     @api.route("/deck/show/remain", methods = ['GET'])
     def mCargarCartasNuevas():
 
+        titulo = "MOSTRANDO CARTAS DISPONIBLES"
+        mensaje ="No hay cartas disponibles"
         link1 = "window.location.href='http://127.0.0.1:5000/deck/new'"
         link2 = "window.location.href='http://127.0.0.1:5000/deck/shuffle'"
         link3 = "window.location.href='http://127.0.0.1:5000/deck/show/remain'"
@@ -98,18 +106,20 @@ class ejecucionSistemaControl:
 
         if(len(paquete)>0):     #Se valida que existan cartas y se trabajan
 
-            maso = []               #Se crea una presentación para mostrar en html las cartas en la baraja
+            mazo = ""              #Se crea una presentación para mostrar en html las cartas en la baraja
             for carta in paquete:
                 cartajson = ("{}{}".format(carta.get('carta'),carta.get('tipo')))
-                maso.append(cartajson)
-            return "<div><STYLE type='text/css'></STYLE></div><div><H1 class='Tit'> Cartas Disponibles </H1><H3>{}</H3><button class='C1' onclick={}>Nueva Baraja</button><button class='C1' onclick={}>Revolver Baraja</button><button class='C1' onclick={}>Ver Disponibles</button><button class='C1' onclick={}>Tomar Carta</button><button class='C1' onclick={}>Ver Mano</button><button class='C1' onclick={}>Mis Jugadas</button><button class='C1' onclick={}>Menú Principal</button></div></div>".format(maso,link1, link2, link3, link4, link5, link6, link7)
+                mazo = mazo +" → "+cartajson
+            return "<style type='text/css'> H1 {background:#273f27;color:#ffffff; text-align:center;margin:2% 20%;margin-bottom:0%;padding:1%;box-sizing: border-box;border-right:solid 2px #000000;border-left:solid 2px #000000;border-bottom:solid 1px #000000;border-top:solid 1px #000000;border-top-left-radius:10px;border-top-right-radius:10px;} div {text-align:center} H3 {text-align: center; color:#ffffff} button {text-align:center;box-sizing: border-box;margin:5px;padding:10px 5%;border:none;background:#1c2f1f;color:#ffffff;} button:hover {box-sizing: border-box;background:#405142;font-weight:bold;padding:12px 5%;border-radius:5px;cursor:pointer;box-shadow:0px 2px 0px #ffffff} body {background:#678a67;} footer {background:#273f27;border-right: solid 2px #000000;text-align:center;border-bottom-right-radius:10px;border-bottom-left-radius:10px;color:#ffffff;margin: 0% 20%;border-top: solid 1px #000000;border-left: solid 2px #000000;border-bottom: solid 2px #000000;}</style> <div> <H1>"+titulo+"</H1><H3>"+mazo+"</H3> <button class='C1' onclick="+link1+">Nueva Baraja</button><button class='C1' onclick="+link2+">Revolver Baraja</button><button class='C1' onclick="+link3+">Ver Disponibles</button><button class='C1' onclick="+link4+">Tomar Carta</button><button class='C1' onclick="+link5+">Ver Mano</button><H6></H6><button class='C1' onclick="+link6+">Mis Jugadas</button><button class='C1' onclick="+link7+">Menú Principal</button> <footer><p class='pie'>Programación Avanzada Segundo Exámen</p></footer> </div>"
         else:
-            return "<div><STYLE type='text/css'></STYLE></div><div><H1 class='Tit'> No hay cartas disponibles </H1><button class='C1' onclick={}>Nueva Baraja</button><button class='C1' onclick={}>Revolver Baraja</button><button class='C1' onclick={}>Ver Disponibles</button><button class='C1' onclick={}>Tomar Carta</button><button class='C1' onclick={}>Ver Mano</button><button class='C1' onclick={}>Mis Jugadas</button><button class='C1' onclick={}>Menú Principal</button></div></div>".format(link1, link2, link3, link4, link5, link6, link7)
+            return "<style type='text/css'> H1 {background:#273f27;color:#ffffff; text-align:center;margin:2% 20%;margin-bottom:0%;padding:1%;box-sizing: border-box;border-right:solid 2px #000000;border-left:solid 2px #000000;border-bottom:solid 1px #000000;border-top:solid 1px #000000;border-top-left-radius:10px;border-top-right-radius:10px;} div {text-align:center} H3 {text-align: center; color:#ffffff} button {text-align:center;box-sizing: border-box;margin:5px;padding:10px 5%;border:none;background:#1c2f1f;color:#ffffff;} button:hover {box-sizing: border-box;background:#405142;font-weight:bold;padding:12px 5%;border-radius:5px;cursor:pointer;box-shadow:0px 2px 0px #ffffff} body {background:#678a67;} footer {background:#273f27;border-right: solid 2px #000000;text-align:center;border-bottom-right-radius:10px;border-bottom-left-radius:10px;color:#ffffff;margin: 0% 20%;border-top: solid 1px #000000;border-left: solid 2px #000000;border-bottom: solid 2px #000000;}</style> <div> <H1>"+titulo+"</H1><H3>"+mensaje+"</H3> <button class='C1' onclick="+link1+">Nueva Baraja</button><button class='C1' onclick="+link2+">Revolver Baraja</button><button class='C1' onclick="+link3+">Ver Disponibles</button><button class='C1' onclick="+link4+">Tomar Carta</button><button class='C1' onclick="+link5+">Ver Mano</button><H6></H6><button class='C1' onclick="+link6+">Mis Jugadas</button><button class='C1' onclick="+link7+">Menú Principal</button> <footer><p class='pie'>Programación Avanzada Segundo Exámen</p></footer> </div>"
 
 
     @api.route("/user/show/hand", methods = ['GET'])
     def mCargarCartasTomadas():
 
+        titulo = "MOSTRANDO CARTAS EN MANO"
+        mensaje ="No has tomado ninguna carta"
         link1 = "window.location.href='http://127.0.0.1:5000/deck/new'"
         link2 = "window.location.href='http://127.0.0.1:5000/deck/shuffle'"
         link3 = "window.location.href='http://127.0.0.1:5000/deck/show/remain'"
@@ -123,18 +133,20 @@ class ejecucionSistemaControl:
 
             if(len(paquete)>0):     #Se valida que existan cartas y se trabajan
 
-                maso = []               #Se crea una presentación para mostrar en html las cartas en la mano
+                mazo = ""              #Se crea una presentación para mostrar en html las cartas en la mano
                 for carta in paquete:
                     cartajson = ("{}{}".format(carta.get('carta'),carta.get('tipo')))
-                    maso.append(cartajson)
-                return "<div><STYLE type='text/css'></STYLE></div><div><H1 class='Tit'> Cartas en Mano... </H1><H3>{}</H3><button class='C1' onclick={}>Nueva Baraja</button><button class='C1' onclick={}>Revolver Baraja</button><button class='C1' onclick={}>Ver Disponibles</button><button class='C1' onclick={}>Tomar Carta</button><button class='C1' onclick={}>Ver Mano</button><button class='C1' onclick={}>Mis Jugadas</button><button class='C1' onclick={}>Menú Principal</button></div></div>".format(maso,link1, link2, link3, link4, link5, link6, link7)
+                    mazo = mazo +" → "+cartajson
+                return "<style type='text/css'> H1 {background:#273f27;color:#ffffff; text-align:center;margin:2% 20%;margin-bottom:0%;padding:1%;box-sizing: border-box;border-right:solid 2px #000000;border-left:solid 2px #000000;border-bottom:solid 1px #000000;border-top:solid 1px #000000;border-top-left-radius:10px;border-top-right-radius:10px;} div {text-align:center} H3 {text-align: center; color:#ffffff} button {text-align:center;box-sizing: border-box;margin:5px;padding:10px 5%;border:none;background:#1c2f1f;color:#ffffff;} button:hover {box-sizing: border-box;background:#405142;font-weight:bold;padding:12px 5%;border-radius:5px;cursor:pointer;box-shadow:0px 2px 0px #ffffff} body {background:#678a67;} footer {background:#273f27;border-right: solid 2px #000000;text-align:center;border-bottom-right-radius:10px;border-bottom-left-radius:10px;color:#ffffff;margin: 0% 20%;border-top: solid 1px #000000;border-left: solid 2px #000000;border-bottom: solid 2px #000000;}</style> <div> <H1>"+titulo+"</H1><H3>"+mazo+"</H3> <button class='C1' onclick="+link1+">Nueva Baraja</button><button class='C1' onclick="+link2+">Revolver Baraja</button><button class='C1' onclick="+link3+">Ver Disponibles</button><button class='C1' onclick="+link4+">Tomar Carta</button><button class='C1' onclick="+link5+">Ver Mano</button><H6></H6><button class='C1' onclick="+link6+">Mis Jugadas</button><button class='C1' onclick="+link7+">Menú Principal</button> <footer><p class='pie'>Programación Avanzada Segundo Exámen</p></footer> </div>"
             else:
-                return "<div><STYLE type='text/css'></STYLE></div><div><H1 class='Tit'> No has tomado ninguna carta </H1><button class='C1' onclick={}>Nueva Baraja</button><button class='C1' onclick={}>Revolver Baraja</button><button class='C1' onclick={}>Ver Disponibles</button><button class='C1' onclick={}>Tomar Carta</button><button class='C1' onclick={}>Ver Mano</button><button class='C1' onclick={}>Mis Jugadas</button><button class='C1' onclick={}>Menú Principal</button></div></div>".format(link1, link2, link3, link4, link5, link6, link7)
+                return "<style type='text/css'> H1 {background:#273f27;color:#ffffff; text-align:center;margin:2% 20%;margin-bottom:0%;padding:1%;box-sizing: border-box;border-right:solid 2px #000000;border-left:solid 2px #000000;border-bottom:solid 1px #000000;border-top:solid 1px #000000;border-top-left-radius:10px;border-top-right-radius:10px;} div {text-align:center} H3 {text-align: center; color:#ffffff} button {text-align:center;box-sizing: border-box;margin:5px;padding:10px 5%;border:none;background:#1c2f1f;color:#ffffff;} button:hover {box-sizing: border-box;background:#405142;font-weight:bold;padding:12px 5%;border-radius:5px;cursor:pointer;box-shadow:0px 2px 0px #ffffff} body {background:#678a67;} footer {background:#273f27;border-right: solid 2px #000000;text-align:center;border-bottom-right-radius:10px;border-bottom-left-radius:10px;color:#ffffff;margin: 0% 20%;border-top: solid 1px #000000;border-left: solid 2px #000000;border-bottom: solid 2px #000000;}</style> <div> <H1>"+titulo+"</H1><H3>"+mensaje+"</H3> <button class='C1' onclick="+link1+">Nueva Baraja</button><button class='C1' onclick="+link2+">Revolver Baraja</button><button class='C1' onclick="+link3+">Ver Disponibles</button><button class='C1' onclick="+link4+">Tomar Carta</button><button class='C1' onclick="+link5+">Ver Mano</button><H6></H6><button class='C1' onclick="+link6+">Mis Jugadas</button><button class='C1' onclick="+link7+">Menú Principal</button> <footer><p class='pie'>Programación Avanzada Segundo Exámen</p></footer> </div>"
     
 
     @api.route("/deck/pickone", methods = ['GET'])
     def mTomarCartas():
 
+        titulo = "TOMANDO UNA CARTA"
+        mensaje ="No quedan cartas disponibles"
         link1 = "window.location.href='http://127.0.0.1:5000/deck/new'"
         link2 = "window.location.href='http://127.0.0.1:5000/deck/shuffle'"
         link3 = "window.location.href='http://127.0.0.1:5000/deck/show/remain'"
@@ -159,13 +171,16 @@ class ejecucionSistemaControl:
                 with open ('barajaMano.json', "w") as paqueteCartas: 
                     json.dump(paquete, paqueteCartas, indent=4)
 
-                return "<div><STYLE type='text/css'></STYLE></div><div><H1 class='Tit'> HA TOMADO UNA CARTA </H1><H3>Carta tomada → {}{}</H3><button class='C1' onclick={}>Nueva Baraja</button><button class='C1' onclick={}>Revolver Baraja</button><button class='C1' onclick={}>Ver Disponibles</button><button class='C1' onclick={}>Tomar Carta</button><button class='C1' onclick={}>Ver Mano</button><button class='C1' onclick={}>Mis Jugadas</button><button class='C1' onclick={}>Menú Principal</button></div>".format(cambio.get('carta'),cambio.get('tipo'),link1, link2, link3, link4, link5, link6, link7)
+                cartaTomada = "Carta tomada → {}{}".format(cambio.get('carta'),cambio.get('tipo'))
+                return "<style type='text/css'> H1 {background:#273f27;color:#ffffff; text-align:center;margin:2% 20%;margin-bottom:0%;padding:1%;box-sizing: border-box;border-right:solid 2px #000000;border-left:solid 2px #000000;border-bottom:solid 1px #000000;border-top:solid 1px #000000;border-top-left-radius:10px;border-top-right-radius:10px;} div {text-align:center} H3 {text-align: center; color:#ffffff} button {text-align:center;box-sizing: border-box;margin:5px;padding:10px 5%;border:none;background:#1c2f1f;color:#ffffff;} button:hover {box-sizing: border-box;background:#405142;font-weight:bold;padding:12px 5%;border-radius:5px;cursor:pointer;box-shadow:0px 2px 0px #ffffff} body {background:#678a67;} footer {background:#273f27;border-right: solid 2px #000000;text-align:center;border-bottom-right-radius:10px;border-bottom-left-radius:10px;color:#ffffff;margin: 0% 20%;border-top: solid 1px #000000;border-left: solid 2px #000000;border-bottom: solid 2px #000000;}</style> <div> <H1>"+titulo+"</H1><H3>"+cartaTomada+"</H3> <button class='C1' onclick="+link1+">Nueva Baraja</button><button class='C1' onclick="+link2+">Revolver Baraja</button><button class='C1' onclick="+link3+">Ver Disponibles</button><button class='C1' onclick="+link4+">Tomar Carta</button><button class='C1' onclick="+link5+">Ver Mano</button><H6></H6><button class='C1' onclick="+link6+">Mis Jugadas</button><button class='C1' onclick="+link7+">Menú Principal</button> <footer><p class='pie'>Programación Avanzada Segundo Exámen</p></footer> </div>"
             else:
-                return "<div><STYLE type='text/css'></STYLE></div><div><H1 class='Tit'> No quedan cartas disponibles </H1><button class='C1' onclick={}>Nueva Baraja</button><button class='C1' onclick={}>Revolver Baraja</button><button class='C1' onclick={}>Ver Disponibles</button><button class='C1' onclick={}>Tomar Carta</button><button class='C1' onclick={}>Ver Mano</button><button class='C1' onclick={}>Mis Jugadas</button><button class='C1' onclick={}>Menú Principal</button></div></div>".format(link1, link2, link3, link4, link5, link6, link7)
+                return "<style type='text/css'> H1 {background:#273f27;color:#ffffff; text-align:center;margin:2% 20%;margin-bottom:0%;padding:1%;box-sizing: border-box;border-right:solid 2px #000000;border-left:solid 2px #000000;border-bottom:solid 1px #000000;border-top:solid 1px #000000;border-top-left-radius:10px;border-top-right-radius:10px;} div {text-align:center} H3 {text-align: center; color:#ffffff} button {text-align:center;box-sizing: border-box;margin:5px;padding:10px 5%;border:none;background:#1c2f1f;color:#ffffff;} button:hover {box-sizing: border-box;background:#405142;font-weight:bold;padding:12px 5%;border-radius:5px;cursor:pointer;box-shadow:0px 2px 0px #ffffff} body {background:#678a67;} footer {background:#273f27;border-right: solid 2px #000000;text-align:center;border-bottom-right-radius:10px;border-bottom-left-radius:10px;color:#ffffff;margin: 0% 20%;border-top: solid 1px #000000;border-left: solid 2px #000000;border-bottom: solid 2px #000000;}</style> <div> <H1>"+titulo+"</H1><H3>"+mensaje+"</H3> <button class='C1' onclick="+link1+">Nueva Baraja</button><button class='C1' onclick="+link2+">Revolver Baraja</button><button class='C1' onclick="+link3+">Ver Disponibles</button><button class='C1' onclick="+link4+">Tomar Carta</button><button class='C1' onclick="+link5+">Ver Mano</button><H6></H6><button class='C1' onclick="+link6+">Mis Jugadas</button><button class='C1' onclick="+link7+">Menú Principal</button> <footer><p class='pie'>Programación Avanzada Segundo Exámen</p></footer> </div>"
+
 
     @api.route("/user/play", methods = ['GET'])
     def mVerificarJuego():
 
+        titulo = "CALCULANDO JUGADAS..."
         link1 = "window.location.href='http://127.0.0.1:5000/deck/new'"
         link2 = "window.location.href='http://127.0.0.1:5000/deck/shuffle'"
         link3 = "window.location.href='http://127.0.0.1:5000/deck/show/remain'"
@@ -444,4 +459,4 @@ class ejecucionSistemaControl:
         else:
             variableReturn = variableReturn +"No hay cartas en mano \n"
 
-        return "<div><STYLE type='text/css'></STYLE></div><div><H1 class='Tit'> Jugadas Disponibles </H1><H3>{}</H3><button class='C1' onclick={}>Nueva Baraja</button><button class='C1' onclick={}>Revolver Baraja</button><button class='C1' onclick={}>Ver Disponibles</button><button class='C1' onclick={}>Tomar Carta</button><button class='C1' onclick={}>Ver Mano</button><button class='C1' onclick={}>Mis Jugadas</button><button class='C1' onclick={}>Menú Principal</button></div>".format(variableReturn,link1, link2, link3, link4, link5, link6, link7)
+        return "<style type='text/css'> H1 {background:#273f27;color:#ffffff; text-align:center;margin:2% 20%;margin-bottom:0%;padding:1%;box-sizing: border-box;border-right:solid 2px #000000;border-left:solid 2px #000000;border-bottom:solid 1px #000000;border-top:solid 1px #000000;border-top-left-radius:10px;border-top-right-radius:10px;} div {text-align:center} H3 {text-align: center; color:#ffffff} button {text-align:center;box-sizing: border-box;margin:5px;padding:10px 5%;border:none;background:#1c2f1f;color:#ffffff;} button:hover {box-sizing: border-box;background:#405142;font-weight:bold;padding:12px 5%;border-radius:5px;cursor:pointer;box-shadow:0px 2px 0px #ffffff} body {background:#678a67;} footer {background:#273f27;border-right: solid 2px #000000;text-align:center;border-bottom-right-radius:10px;border-bottom-left-radius:10px;color:#ffffff;margin: 0% 20%;border-top: solid 1px #000000;border-left: solid 2px #000000;border-bottom: solid 2px #000000;}</style> <div> <H1>"+titulo+"</H1><H3>"+variableReturn+"</H3> <button class='C1' onclick="+link1+">Nueva Baraja</button><button class='C1' onclick="+link2+">Revolver Baraja</button><button class='C1' onclick="+link3+">Ver Disponibles</button><button class='C1' onclick="+link4+">Tomar Carta</button><button class='C1' onclick="+link5+">Ver Mano</button><H6></H6><button class='C1' onclick="+link6+">Mis Jugadas</button><button class='C1' onclick="+link7+">Menú Principal</button> <footer><p class='pie'>Programación Avanzada Segundo Exámen</p></footer> </div>"

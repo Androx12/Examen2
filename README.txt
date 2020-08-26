@@ -36,5 +36,8 @@ FUNCIONALIDADES
 
 Verificar si existen cartas antes de intentar revovler, tomar o mostrar
 
+EXTRAS:
+Se implemeta el FE en html
+
 OTRAS NOTAS:
 Solo ejecutar desde el MAIN, el archivo 'logicaCartas.py' se uso exclusivamente para realizar pruebas desde consola, no afecta el comportamiento en ejecución. 
