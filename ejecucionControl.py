@@ -17,7 +17,6 @@ class ejecucionSistemaControl:
     def mInicio():
         return render_template("nuevo.html")
         
-
     @api.route("/deck/new", methods = ['GET'])
     def mCrearBaraja():
 
